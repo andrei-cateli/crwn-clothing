@@ -9,3 +9,17 @@ export const addItemToCart = (oldItems, newItem) => {
 
   return [...oldItems, { ...newItem, quantity: 1 }];
 };
+
+export const removeItemFromCheckoutPage = (oldItems, newItems) => {
+  const existing = oldItems.find((item) => item.id === newItems.id);
+
+  if (existing.quantity === 1) {
+    return oldItems.filter((item) => item.id !== newItems.id);
+  }
+
+  return oldItems.map((cartItem) =>
+    cartItem.id === newItems.id
+      ? { ...cartItem, quantity: cartItem.quantity - 1 }
+      : cartItem
+  );
+};
